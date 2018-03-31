@@ -1,5 +1,6 @@
+// INIT .env
 require("dotenv").config();
-
+// VARIABLES
 var Twitter = require('twitter')
 var request = require('request')
 var Spotify = require('node-spotify-api')
@@ -9,13 +10,9 @@ var userInput = process.argv;
 var command = userInput[2];
 var searchParms = userInput.slice(3, userInput.length).join(' ');
 var omdbParms = userInput.slice(3, userInput.length).join('+');
-
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
-
-
 // GET COMMAND AND RUN FUNCTION
-
 runLiri();
 function runLiri() {
     switch (command) {
@@ -32,10 +29,7 @@ function runLiri() {
             fetchDoWhatItSays();
     }
 }
-
-
 // TWITTER
-
 function fetchMyTweets() {
     client.get('statuses/user_timeline', function (error, tweets, response) {
         if (!error) {
@@ -44,7 +38,6 @@ function fetchMyTweets() {
         }
     });
 }
-
 // SPOTIFY
 function fetchSpotify() {
     if (searchParms !== '') {
@@ -77,10 +70,7 @@ function fetchSpotify() {
         })
     }
 }
-
-
 // OMBD
-
 function fetchMovie() {
     var url = 'http://www.omdbapi.com/?t=' + omdbParms + '?' + keys.omdb.key;
     console.log(url);
@@ -93,9 +83,18 @@ function fetchMovie() {
         }
     })
 }
-
-// I DO WHAT I WANT
-
+// DO WHAT IT SAYS
 function fetchDoWhatItSays() {
-
+    fs.readFile('random.txt', 'utf8', function (error, data) {
+        if (error) {
+            console.log(error);
+        } else {
+            var dataArr = data.split(',');
+            command = dataArr[0];
+            movieSong = dataArr[1];
+            movieSong = movieSong.replace('"', ' ');
+            movieSong = movieSong.replace('"', ' ');
+            runLiri();
+        }
+    });
 }
