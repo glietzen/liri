@@ -2,7 +2,7 @@ require("dotenv").config();
 
 var Twitter = require('twitter')
 var request = require('request')
-var Spotify = require('spotify')
+var Spotify = require('node-spotify-api')
 var fs = require('fs')
 var keys = require('./keys.js')
 var userInput = process.argv;
@@ -14,23 +14,23 @@ var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 
 
-
-console.log(command);
-console.log(searchParms);
-console.log(omdbParms);
-
 // GET COMMAND AND RUN FUNCTION
 
-if (command === 'my-tweets') {
-    fetchMyTweets();
-} else if (command === 'spotify-this-song') {
-    fetchSpotify();
-} else if (command === 'movie-this') {
-    fetchMovie();
-} else if (command === 'do-what-it-says') {
-    fetchDoWhatItSays();
-} else {
-    console.log('Enter a command: ' + '\n' + 'my-tweets' + '\n' + 'spotify-this-song' + '\n' + 'movie-this' + '\n' + 'do-what-it-says');
+runLiri();
+function runLiri() {
+    switch (command) {
+        case 'my-tweets':
+            fetchMyTweets();
+            break;
+        case 'spotify-this-song':
+            fetchSpotify();
+            break;
+        case 'movie-this':
+            fetchMovie();
+            break;
+        case 'do-what-it-says':
+            fetchDoWhatItSays();
+    }
 }
 
 
@@ -47,7 +47,6 @@ function fetchMyTweets() {
 
 // SPOTIFY
 function fetchSpotify() {
-    console.log(spotify);
     if (searchParms !== '') {
         spotify.search({
             type: 'track',
@@ -98,17 +97,5 @@ function fetchMovie() {
 // I DO WHAT I WANT
 
 function fetchDoWhatItSays() {
-    // fs.readFile('random.txt', 'utf8', function(err, data){
-    //     var dataArr = data.split(",");
-    //     if (dataArr.length === 2) {
-    //         command = dataArr[0];
-    //         searchTerms = dataArr[1];
-    //         omdbTerms = dataArr[1].replace(/ /g, '+');
-    //         initiate();
-    //     }
-    //     else if (dataArr.length === 1) {
-    //         command = dataArr[0];
-    //         initiate();
-    //     }
-    // })
+
 }
