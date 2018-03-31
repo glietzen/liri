@@ -96,3 +96,19 @@ function fetchMovie() {
 }
 
 // I DO WHAT I WANT
+
+function fetchDoWhatItSays() {
+    // fs.readFile('random.txt', 'utf8', function(err, data){
+    //     var dataArr = data.split(",");
+    //     if (dataArr.length === 2) {
+    //         command = dataArr[0];
+    //         searchTerms = dataArr[1];
+    //         omdbTerms = dataArr[1].replace(/ /g, '+');
+    //         initiate();
+    //     }
+    //     else if (dataArr.length === 1) {
+    //         command = dataArr[0];
+    //         initiate();
+    //     }
+    // })
+}
